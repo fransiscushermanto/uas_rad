@@ -1,0 +1,308 @@
+{
+	"info": {
+		"_postman_id": "0d33b2cc-e677-4085-ad87-cb5f48c7d75e",
+		"name": "UAS RAD",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Books",
+			"item": [
+				{
+					"name": "Books",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/books",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Book",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/books/:abbrev",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"books",
+								":abbrev"
+							],
+							"variable": [
+								{
+									"key": "abbrev",
+									"value": "mt"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Versions",
+			"item": [
+				{
+					"name": "Versions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/versions",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"versions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Verses",
+			"item": [
+				{
+					"name": "Chapters",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/verses/:version/:abbrev/:chapter",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"verses",
+								":version",
+								":abbrev",
+								":chapter"
+							],
+							"variable": [
+								{
+									"key": "version",
+									"value": "kjva"
+								},
+								{
+									"key": "abbrev",
+									"value": "mt"
+								},
+								{
+									"key": "chapter",
+									"value": "18"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verse",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/verses/:version/:abbrev/:chapter/:verse",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"verses",
+								":version",
+								":abbrev",
+								":chapter",
+								":verse"
+							],
+							"variable": [
+								{
+									"key": "version",
+									"value": "kjv"
+								},
+								{
+									"key": "abbrev",
+									"value": "mt"
+								},
+								{
+									"key": "chapter",
+									"value": "1"
+								},
+								{
+									"key": "verse",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Random Verse",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "Random Book Verse",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/random/verses/:version/:abbrev",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"random",
+								"verses",
+								":version",
+								":abbrev"
+							],
+							"variable": [
+								{
+									"key": "version",
+									"value": ""
+								},
+								{
+									"key": "abbrev",
+									"value": "mt"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search By Word",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Testing\",\r\n    \"email\": \"cobacoba@gmail.com\",\r\n    \"password\": \"123456\",\r\n    \"notifications\": true \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ik1vbiBNYXkgMDMgMjAyMSAxMjoxNjo0NyBHTVQrMDAwMC5jb2JhY29iYUBnbWFpbC5jb20iLCJpYXQiOjE2MjAwNDQyMDd9.sLsBgu0KRgZCNX7peDv-uoLW-vL3UtA24X7d8Z_wVpg",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/users/:email",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								":email"
+							],
+							"variable": [
+								{
+									"key": "email",
+									"value": "testin12g@gmail.com"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Token",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"email@email.com\",\r\n  \"password\": \"102030\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Resend Password",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

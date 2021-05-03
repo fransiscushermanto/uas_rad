@@ -1,0 +1,434 @@
+FORMAT: 1A
+HOST: http://localhost:8000/api
+
+# UAS RAD
+
+Ini merupakan API Alkitab yang basenya menconsume data dari https://bibleapi.co/
+
+## Versions [/versions]
+
+returns all Bible versions and number of verses
+
+### Get Versions [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "version": "acf",
+                "verses": 31106
+            },
+            {
+                "version": "apee",
+                "verses": 30975
+            },
+            {
+                "version": "bbe",
+                "verses": 31104
+            },
+        ]
+
+## Books [/books]
+
+returns list of 66 bible books
+
+### Get All Bible Books [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "abbrev": {
+                    "pt": "gn",
+                    "en": "gn"
+                },
+                "author": "Moisés",
+                "chapters": 50,
+                "group": "Pentateuco",
+                "name": "Gênesis",
+                "testament": "VT"
+            },
+            {
+                "abbrev": {
+                    "pt": "ex",
+                    "en": "ex"
+                },
+                "author": "Moisés",
+                "chapters": 40,
+                "group": "Pentateuco",
+                "name": "Êxodo",
+                "testament": "VT"
+            },
+            ...
+        ]
+
+## Book [/book/:abbrev]
+
+return details of a bible book
+
+### Get Bible Verse [GET]
+
++ Response 200 (application/json)
+
+        {
+            "abbrev": {
+                "pt": "gn",
+                "en": "gn"
+            },
+            "author": "Moisés",
+            "chapters": 50,
+            "comment": ""
+            "group": "Pentateuco",
+            "name": "Gênesis",
+            "testament": "VT"
+        }
+
++ Response 404 (application/json)
+
+        {
+            "statusCode": 404,
+            "message": "Book not found"
+        }
+
+## Chapter [/verses/:version/:abbrev/:chapter]
+
+returns all verses and details of a chapter
+
+### Get Bible Chapters and Verses [GET]
+
++ Response 200 (application/json)
+
+        {
+            "book": {
+                "abbrev": {
+                    "pt": "mt",
+                    "en": "mt"
+                },
+                "name": "Mateus",
+                "author": "Mateus",
+                "group": "Evangelhos",
+                "version": "kjv"
+            },
+            "chapter": {
+                "chapter": 1,
+                "verses": 25
+            },
+            "verses": [
+                {
+                    "verse": 1,
+                    "text": "The book of the generation of Jesus Christ, the son of David, the son of Abraham."
+                },
+                {
+                    "verse": 2,
+                    "text": "Abraham begat Isaac; and Isaac begat Jacob; and Jacob begat Judas and his brethren;"
+                },
+                ...
+            ]
+        }
+    
++ Response 404 (application/json)
+
+        {
+            "statusCode": 404,
+            "message": "Chapter not found"
+        }
+        
+        {
+            "statusCode": 404,
+            "message": "Book not found"
+        }
+
+## Verse [/verses/:version/:abbrev/:chapter/:verse]
+
+returns a verse from a chapter
+
+### Get Bible Verse [GET]
+
++ Response 200 (application/json)
+
+        {
+            "book": {
+                "abbrev": {
+                    "pt": "mt",
+                    "en": "mt"
+                },
+                "name": "Mateus",
+                "author": "Mateus",
+                "group": "Evangelhos",
+                "version": "kjv"
+            },
+            "chapter": 1,
+            "verse": 1,
+            "text": "The book of the generation of Jesus Christ, the son of David, the son of Abraham."
+        }
+        
++ Response 404 (application/json)
+
+        {
+            "statusCode": 404,
+            "message": "Verse not found"
+        }
+        
+        {
+            "statusCode": 404,
+            "message": "Book not found"
+        }
+
+## Random Verse [/random/verses/:version]
+
+return a random verse from a chapter
+
+### Get Random Bible Verse [GET]
+
++ Response 200 (application/json)
+
+        {
+            "book": {
+                "abbrev": {
+                    "pt": "is",
+                    "en": "is"
+                },
+                "name": "Isaías",
+                "author": "Isaías",
+                "group": "Profetas maiores",
+                "version": "kjv"
+            },
+            "chapter": 18,
+            "verse": 4,
+            "text": "For so the LORD said unto me, I will take my rest, and I will consider in my dwelling place like a clear heat upon herbs, {and} like a cloud of dew in the heat of harvest. {consider...: or, regard my set dwelling} {upon...: or, after rain}"
+        }
+        
++ Response 500 (application/json)
+
+        {
+            "statusCode": 500,
+            "message": "Oops! An unexpected error has occurred, create an [issue](https://github.com/marciovsena/abibliadigital/issues/new) with the information of this request."
+        }
+
+## Random Verse Book [/random/verses/:version/:abbrev]
+
+return a verse from a specific book
+
+### Get Random Verse Book [GET] 
+
++ Response 200 (application/json)
+
+        {
+            "book": {
+                "abbrev": {
+                    "pt": "mt",
+                    "en": "mt"
+                },
+                "name": "Mateus",
+                "author": "Mateus",
+                "group": "Evangelhos",
+                "version": "kjv"
+            },
+            "chapter": 9,
+            "verse": 33,
+            "text": "And when the devil was cast out, the dumb spake: and the multitudes marvelled, saying, It was never so seen in Israel."
+        }
+
++ Response 500 (application/json)
+
+        {
+            "statusCode": 500,
+            "message": "Oops! An unexpected error has occurred, create an [issue](https://github.com/marciovsena/abibliadigital/issues/new) with the information of this request."
+        }
+
+## Search by word [/verses/search]
+
+returns verses with the searched word
+
+### Search Word [POST]
+
++ Request (application/json)
+
+        {
+          "version": "kjv",
+          "search": "grape"
+        }
+        
++ Response 201 (application/json)
+    
+    + Headers
+
+
+    + Body
+
+            {
+                "occurrence": 9,
+                "version": "kjv",
+                "verses": [
+                    {
+                        "book": {
+                            "abbrev": {
+                                "pt": "lv",
+                                "en": "lv"
+                            },
+                            "author": "Moisés",
+                            "chapters": 27,
+                            "group": "Pentateuco",
+                            "name": "Levítico",
+                            "testament": "VT"
+                        },
+                        "chapter": 19,
+                        "text": "And thou shalt not glean thy vineyard, neither shalt thou gather {every} grape of thy vineyard; thou shalt leave them for the poor and stranger: I {am} the LORD your God.",
+                        "verse": 10
+                    },
+                    ...
+                ]
+            }
+            
++ Response 500 (application/json)
+
+        {
+            "statusCode": 500,
+            "message": "Request failed with status code 500"
+        }
+
+## Create User [/users]
+
+create a new user
+
+### Create User [POST]
+
++ Request (application/json)
+
+        {
+            "name": "Testing",
+            "email": "testing@gmail.com",
+            "password": "123456", // minimum size 6 digits
+            "notifications": true // receive update emails
+        }
+        
++ Response 201 (application/json)
+
+    + Body
+
+            {
+                "name": "Testing",
+                "email": "testing@gmail.com",
+                "notifications": true,
+                "token": "eyJhbGciO...", //does not expire
+            }
+            
++ Response 400 (application/json)
+
+        {
+            "statusCode": 400,
+            "message": "Request failed with status code 400"
+        }
+            
++ Response 500 (application/json)
+
+        {
+            "statusCode": 500,
+            "message": "Request failed with status code 500"
+        }
+        
+### Delete User [DELETE]
+
++ Request (application/json)
+    
+    + Headers
+
+             Authorization: Bearer eyJhbGciOiJIU...
+    
++ Response 200 (application/json)
+    
+    + Body
+    
+            {
+                "msg": "User successfully removed"
+            }
+
+## Get User [/users/:email]
+
+create a new user
+
+### Get User [POST]
+
++ Request (application/json)
+
+    + Headers
+        
+             Authorization: Bearer eyJhbGciOiJIU...
+             
+        
++ Response 201 (application/json)
+    
+    + Body
+
+            {
+              name: "Name",
+              email: "email@email.com",
+              token: "eyJhbGciOiJIU...", // does not expire
+              notifications: true,
+              lastLogin: "2020-01-01T16:59:22.862Z"
+            }
+            
++ Response 400 (application/json)
+
+        {
+            "statusCode": 400,
+            "message": "Request failed with status code 400"
+        }
+            
++ Response 500 (application/json)
+
+        {
+            "statusCode": 500,
+            "message": "Request failed with status code 500"
+        }
+        
+## Update Token [/token]
+
+ returns a token
+
+### Update Token [PUT]
+
++ Request (application/json)
+
+    + Body 
+    
+            {
+                "email": "email@email.com",
+                "password": "102030"
+            }
+
++ Response 200 (application/json)
+    
+    + Body
+    
+            {
+                "name": "Name",
+                "email": "email@email.com",
+                "token": "eyJhbGciOiJIU..."
+            }
+            
++ Response 404 (application/json)
+
+    + Body
+    
+            {
+                "statusCode": 404,
+                "message": "User not found"
+            }
+            
+## Resend Password [/users/password/:email]
+
+send email
+
+### Resend Password [POST]
+
++ Response 200 (application/json)
+    
+    + Body
+            
+            {
+                msg: "New password successfully sent to email :email"
+            }
+        
+            
+
