@@ -261,9 +261,26 @@
 				{
 					"name": "Update Token",
 					"request": {
-						"method": "GET",
+						"method": "PUT",
 						"header": [],
-						"url": null
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"email@email.com\",\r\n  \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/token",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"token"
+							]
+						}
 					},
 					"response": []
 				},
@@ -271,10 +288,16 @@
 					"name": "Delete User",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ik1vbiBNYXkgMDMgMjAyMSAxMzozMDo1OCBHTVQrMDAwMC5lbWFpbEBlbWFpbC5jb20iLCJpYXQiOjE2MjAwNDg2NTh9._ydptzQsn2UztFANI2eYq-PjeHZ8X3BwK893VS2M-i8",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"email\": \"email@email.com\",\r\n  \"password\": \"102030\"\r\n}",
+							"raw": "{\r\n  \"email\": \"email@email.com\",\r\n  \"password\": \"123456\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -296,9 +319,25 @@
 				{
 					"name": "Resend Password",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "{{base_url}}/users/password/:email",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"password",
+								":email"
+							],
+							"variable": [
+								{
+									"key": "email",
+									"value": "email@email.com"
+								}
+							]
+						}
 					},
 					"response": []
 				}
